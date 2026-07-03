@@ -1,58 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Muhasebe Panel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Küçük işletmeler için geliştirilmiş, kullanımı kolay bir ön muhasebe yönetim paneli.
 
-## About Laravel
+ Özellikler
+   Şirket kullanıcı ID'si ile güvenli giriş sistemi
+   Dashboard — anlık gelir, gider ve bakiye özeti ile grafik görünümü
+   Gelir & gider işlemleri ekleme, düzenleme ve silme
+   Fatura oluşturma ve takibi (otomatik fatura numarası)
+   Tarih aralığı ve kategori bazlı filtreleme
+   Token tabanlı API güvenliği (Laravel Sanctum)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Teknolojiler
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Backend-> Laravel 13, PHP 8.4
+Frontend-> Vue 3 (Composition API), Vue Router
+Veritabanı-> MySQL
+Kimlik Doğrulama-> Laravel Sanctum
+Stil-> Tailwind CSS
+Build-> Vite
 
-## Learning Laravel
+Kurulum
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Gereksinimler
+  PHP 8.2+
+  Composer
+  Node.js 18+
+  MySQL
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Adımlar
 
-## Agentic Development
+bash# Repoyu klonla
+git clone https://github.com/irem0ckmk/Muhasebe-panel-.git
+cd Muhasebe-panel-
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+# PHP bağımlılıklarını yükle
+composer install
 
-```bash
-composer require laravel/boost --dev
+# Node bağımlılıklarını yükle
+npm install
 
-php artisan boost:install
-```
+# .env dosyasını oluştur
+cp .env.example .env
+php artisan key:generate
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+# Veritabanı ayarlarını .env dosyasında düzenle
+DB_DATABASE=muhasebe_panel
+DB_USERNAME=root
+DB_PASSWORD=şifren
 
-## Contributing
+# Veritabanını oluştur ve migrate et
+php artisan migrate --seed
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Uygulamayı başlat
+php artisan serve
+npm run dev
 
-## Code of Conduct
+Uygulama http://localhost:8000 adresinde çalışacaktır.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Proje Yapısı
 
-## Security Vulnerabilities
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── AuthController.php        # Giriş/çıkış işlemleri
+│   │   ├── TransactionController.php # Gelir/gider CRUD
+│   │   ├── InvoiceController.php     # Fatura CRUD
+│   │   └── DashboardController.php   # Özet veriler
+│   └── Models/
+│       ├── User.php
+│       ├── Transaction.php
+│       └── Invoice.php
+├── routes/
+│   └── api.php                       # API route tanımları
+└── resources/js/
+    ├── views/                        # Vue sayfaları
+    ├── components/                   # Sidebar vb. bileşenler
+    └── api/                          # API istek fonksiyonları
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Notlar
+  Kullanıcılar şirket tarafından sisteme tanımlanır, kayıt formu yoktur.
+  Tüm API endpoint'leri Sanctum token koruması altındadır.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Muğla Sıtkı Koçman Üniversitesi — Yazılım Mühendisliği Staj Projesi
